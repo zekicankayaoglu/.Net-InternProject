@@ -1,0 +1,47 @@
+﻿@model CartListViewModel
+
+  <h2>Your Cart</h2>
+@if(Model.Cart.CartLines.Count == 0)
+{
+    <font size="3" color="darkpurple"><b>Your cart is empty!</b></font><br />
+    <font size="3" color="darkpurple"><b>Please add product to continue..</b></font>
+
+}
+else{
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Product Name</th>
+            <th>Define</th>
+            <th>Price</th>
+            <th>Number of Stock</th>
+            <th>Number of Purchase</th>
+        </tr>
+    </thead>
+    @foreach(var cartLine in Model.Cart.CartLines)
+    {      
+            <tbody>
+                <tr>
+                    <td>@cartLine.Product.ProductId</td>
+                    <td>@cartLine.Product.ProductName</td>
+                    <td>@cartLine.Product.QuantityPerUnit</td>
+                    <td>@cartLine.Product.UnitPrice</td>
+                    <td>@cartLine.Product.UnitsInStock</td>
+                    <td>@cartLine.Quantity</td>
+
+                    <td><a class="btn btn-sm btn-danger" asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@cartLine.Product.ProductId">Remove from Cart  <i class="fa-solid fa-trash-can"></i></a></td>
+                </tr>
+               
+            </tbody>           
+     
+    }
+        <td><strong>Total Price:</strong></td>
+        <td><strong>@Model.Cart.Total</strong></td>
+    
+</table>
+    <td><a class=" btn btn-success btn-group-sm" asp-controller="Cart" asp-action="Complete">Complete Order  <i class="fa-regular fa-credit-card"></i></a></td>
+}
+
+
+
